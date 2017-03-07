@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}
+  <a href="{% url 'register' %}">הרשם לאתר</a>
+{% endblock %}
+
+{% block content %}
+  <span class='login' align='center'>
+  <h2>כניסה לאתר</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">התחבר</button>
+  </form>
+  </span>
+{% endblock %}
+
+

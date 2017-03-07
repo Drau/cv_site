@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}register{% endblock %}
+
+{% block header %}
+  <a href="{% url 'login' %}">כניסה לאתר</a>
+{% endblock %}
+
+{% block content %}
+  <h2>register</h2>
+  <div>
+    <form action="{% url 'new_user' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="user_name" id="name" value="" placeholder="username" />
+        <input type="text" name="password" id="password" value="" placeholder="password" />
+        <input type="text" name="guest_answer" id="answer" value="" placeholder="how many guest are coming" />
+        
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <input type="submit" value="add" />
+    </form>
+</div>
+{% endblock %}

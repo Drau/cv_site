@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}See you!{% endblock %}
+
+{% block header %}
+  <a href="{% url 'login' %}">כניסה לאתר</a>
+  <a href="{% url 'register' %}">הרשם לאתר</a>
+{% endblock %}
+
+{% block content %}
+  <h2>התנתקת מהאתר</h2>
+  <a href="{% url 'index' %}">חזרה לדף הבית</a>
+{% endblock %}
