@@ -3,15 +3,16 @@
 {% block title %}{{ block.super }} - עדכון פרטים{% endblock %}
 
 {% block header %}
-  <a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a>
+  <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
 {% endblock %}
 
 {% block content %}
   <div class="update_user">
+    <h2>עדכון פרטים </h2>
     <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_ul }}
-      <input type="submit" value="עדכן">
+      <input type="submit" value="עדכן" class="btn btn-primary">
     </form>
   </div>
 {% endblock %}

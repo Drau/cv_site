@@ -49,7 +49,7 @@ class UserForm(ModelForm):
             'email': 'אימייל',
         }
         help_texts = {
-            # 'username': 'שם משתמש',
+            'username':'',
             # 'email': 'אימייל'),
         }
         error_messages = {

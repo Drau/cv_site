@@ -3,7 +3,8 @@
 {% block title %}{{ block.super }} - רישום{% endblock %}
 
 {% block header %}
-  <a href="{% url 'login' %}" class="btn btn-primary">כניסה לאתר</a>
+  <li><a href="{% url 'login' %}" class="btn btn-primary">כניסה לאתר</a></li>
+  <li><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
 {% endblock %}
 
 {% block content %}

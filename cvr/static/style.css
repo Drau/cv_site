@@ -1,39 +1,24 @@
-html { height: 100% }
+/*html { height: 100% }
 
 body {
     direction: rtl;
     height: 100%;
     margin: 0px;
     padding: 0px;
+    position: relative;
 }
 
-.container {
-    min-height: 80%;
-    .main {
-        padding-bottom: 100px;
-    }
-
-}
-
-header {
-    height: 20%;
-}
-
-.bg-primary {
-    height: 100px;
-    text-align: center;
-}
 
 .login {
     text-align: center;
 }
 
-.create_user {
-    direction: rtl;
+.container.main {
+    min-height: 100%;
 }
 
-.update_user {
-    direction: rtl;
+.container.body {
+    min-height: 80%;
 }
 
 footer {
@@ -49,4 +34,133 @@ footer p {
   text-align: center;
   color: #FFF;
   font-size: 16px;
+}*/
+
+* { box-sizing: border-box; }
+
+html { font-size: 62.5%; min-height: 100%; }
+
+body { 
+  margin: 0;
+  font-size: 1.8rem;
+  font-family: 'Avenir', Arial, sans-serif;
+  min-height: 100%;
+}
+
+.login {
+    text-align: center;
+}
+
+.main-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 6rem;
+  color: white;
+  background: #444;
+  line-height: 6rem;
+  transform: translateY(0);
+  transform: translate3d(0,0,0);
+  transition: .25s transform;
+  backface-visibility: hidden;
+  padding-right: 20px;
+}
+
+.heads-up {
+  transform: translateY(-6rem);
+  transform: translate3d(0,-6rem,0);
+}
+
+.main-header h1 {
+  float: left;
+  vertical-align: middle;
+  font-size: 1.4rem;
+  margin: 0 0 0 2rem;
+  text-transform: uppercase;
+}
+
+.main-header p {
+  float: right;
+  font-size: 1.4rem;
+  margin: 0 0 0 2rem;
+}
+
+.main-header nav {
+  float: right;
+  font-size: 1.4rem;
+}
+
+.main-header nav ul { 
+  margin: 0; 
+  padding: 0; 
+}
+
+.main-header nav li {
+  display: inline-block;
+  padding: 0 2rem;
+  border-left: .1rem solid #555;
+}
+
+main { 
+  padding: 10rem 6rem;
+  background: #EEE;
+  direction: rtl;
+  min-height: 9000px;
+}
+
+.create_user {
+  max-width: 600px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.create_user {
+  min-height: 400px;
+  max-width: 600px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1); 
+}
+
+.create_user label {
+    float: right;
+    clear: left;
+    width: 150px;
+    text-align: right;
+    }
+
+.create_user li {
+     list-style-type: none;
+}
+
+.create_user input {
+    float: left;
+}
+
+.update_user {
+  min-height: 400px;
+  max-width: 600px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1); 
+}
+
+.update_user label {
+    float: right;
+    clear: left;
+    width: 150px;
+    text-align: right;
+    }
+
+.update_user li {
+     list-style-type: none;
+}
+
+.update_user input {
+    float: left;
 }
