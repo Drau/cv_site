@@ -1,22 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'cvr/base.html' %}
 
-{% block title %}register{% endblock %}
+{% block title %}{{ block.super }} - רישום{% endblock %}
 
 {% block header %}
-  <a href="{% url 'login' %}">כניסה לאתר</a>
+  <a href="{% url 'login' %}" class="btn btn-primary">כניסה לאתר</a>
 {% endblock %}
 
 {% block content %}
-  <h2>register</h2>
-  <div>
-    <form action="{% url 'new_user' %}" method="post">
+  <h2>רישום לאתר</h2>
+  <div class="create_user">
+    <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="user_name" id="name" value="" placeholder="username" />
-        <input type="text" name="password" id="password" value="" placeholder="password" />
-        <input type="text" name="guest_answer" id="answer" value="" placeholder="how many guest are coming" />
-        
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <input type="submit" value="add" />
+        {{ form.as_ul }}
+      <input type="submit" value="צור" class="btn btn-primary">
     </form>
-</div>
+  </div>
 {% endblock %}

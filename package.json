@@ -1,0 +1,22 @@
+{
+  "name": "cvs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drau/tmp.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Drau/tmp/issues"
+  },
+  "homepage": "https://github.com/Drau/tmp#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

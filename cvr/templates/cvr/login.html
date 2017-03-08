@@ -1,20 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'cvr/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{{ block.super }} -כניסה{% endblock %}
 
 {% block header %}
-  <a href="{% url 'register' %}">הרשם לאתר</a>
+  <a href="{% url 'register' %}" class="btn btn-primary">הרשם לאתר</a>
 {% endblock %}
 
 {% block content %}
-  <span class='login' align='center'>
+  <div class='login'>
   <h2>כניסה לאתר</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">התחבר</button>
+    <button type="submit" class="btn btn-primary">התחבר</button>
   </form>
-  </span>
+  </div>
 {% endblock %}
-
-

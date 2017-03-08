@@ -1,11 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'cvr/base.html' %}
 
-{% block title %}index{% endblock %}
+{% block title %}{{ block.super }} - עדכון פרטים{% endblock %}
 
 {% block header %}
-  <a href="{% url 'logout' %}">התנתקות</a>
+  <a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a>
 {% endblock %}
 
 {% block content %}
-  <h2>index</h2>
+  <div class="update_user">
+    <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_ul }}
+      <input type="submit" value="עדכן">
+    </form>
+  </div>
 {% endblock %}
