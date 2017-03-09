@@ -1,40 +1,4 @@
-/*html { height: 100% }
 
-body {
-    direction: rtl;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    position: relative;
-}
-
-
-.login {
-    text-align: center;
-}
-
-.container.main {
-    min-height: 100%;
-}
-
-.container.body {
-    min-height: 80%;
-}
-
-footer {
-  position: relative;
-  height: 100px;
-  background: none repeat scroll 0% 0% #31353A;
-  font-size: 12px;
-  color: #CCC;
-  text-align: center;
-}
-footer p {
-  list-style: outside none none;
-  text-align: center;
-  color: #FFF;
-  font-size: 16px;
-}*/
 
 * { box-sizing: border-box; }
 
@@ -45,6 +9,7 @@ body {
   font-size: 1.8rem;
   font-family: 'Avenir', Arial, sans-serif;
   min-height: 100%;
+  background: #A52A2A;
 }
 
 .login {
@@ -103,10 +68,12 @@ body {
 }
 
 main { 
+  display: block;
+  min-height: 900px;
   padding: 10rem 6rem;
   background: #EEE;
   direction: rtl;
-  min-height: 9000px;
+  /*min-height: 9000px;*/
 }
 
 .create_user {
@@ -141,8 +108,17 @@ main {
     float: left;
 }
 
+.create_user input.btn-primary  {
+  float: right;
+}
+
+.errorlist {
+  color: red;
+}
+
+
 .update_user {
-  min-height: 400px;
+  min-height: 500px;
   max-width: 600px;
   padding: 15px 35px 45px;
   margin: 0 auto;
@@ -163,4 +139,23 @@ main {
 
 .update_user input {
     float: left;
+}
+
+.update_user input.btn-primary  {
+  margin-top: 10px;
+  float: right;
+}
+
+.profile {
+  
+}
+
+.profile .title {
+  text-align: center;
+}
+
+.profile .profile-img{
+  height: 200px;
+  width: 200px;
+  float: left;
 }

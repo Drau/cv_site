@@ -9,26 +9,19 @@ from .models import Profile
 
 
 class ProfileForm(ModelForm):
-
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="שם פרטי")
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="שם משפחה")
+    cv = forms.FileField(widget=forms.FileInput(attrs={'class':'form-control'}), label="קורות חיים", required=False )
+    image = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}), label="תמונה", required=False )
+    free_text = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="טקסט חופשי", required=False )
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'cv', 'free_text']
+        fields = ['first_name', 'last_name', 'cv', 'image', 'free_text']
         labels = {
-            'first_name': 'שם פרטי',
-            'last_name': 'שם משפחה',
-            'cv': 'קורות חיים',
-            'free_text': 'טקסט חופשי',
         }
         help_texts = {
-            # 'first_name': 'שם פרטי',
-            # 'last_name': 'שם משפחה',
-            # 'cv': 'קורות חיים',
-            # 'free_text': 'טקסט חופשי',
         }
         error_messages = {
-        #     'password2': {
-        #         'password_mismatch': "סיסמאות אינן תואמות"),
-        #     },
         }
 
     def save(self, commit=True):
@@ -38,24 +31,24 @@ class ProfileForm(ModelForm):
         return profile
 
 class UserForm(ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput, label="סיסמא")
-    password2 = forms.CharField(widget=forms.PasswordInput, label="אימות סיסמא")
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="שם משתמש")
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="סיסמא")
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}), label="אימות סיסמא")
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}), label="אימייל")
+    
+    error_messages = {
+        'password_mismatch': "סיסמאות אינן תואמות",
+    }
 
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2', 'email']
-        labels = {
-            'username': 'שם משתמש',
-            'email': 'אימייל',
-        }
         help_texts = {
-            'username':'',
-            # 'email': 'אימייל'),
         }
         error_messages = {
-        #     'password2': {
-        #         'password_mismatch': "סיסמאות אינן תואמות"),
-        #     },
+            'password2': {
+                'password_mismatch': "סיסמאות אינן תואמות",
+            },
         }
 
     def clean_password2(self):
@@ -71,5 +64,5 @@ class UserForm(ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
-            Profile.objects.create(user=user)
+            # Profile.objects.create(user=user)
         return user

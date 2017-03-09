@@ -103,15 +103,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
-MEDIA_ROOT = ''
+MEDIA_ROOT = 'cvs/'
+MEDIA_URL = 'images/'
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'yarn.finders.YarnFinder',
 ]
-
 YARN_ROOT_PATH = BASE_DIR

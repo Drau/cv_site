@@ -12,7 +12,7 @@
       <header class="main-header">
         <h1>מכללת רופין - תואר שני - לוגיסטיקה - קורות חיים</h1>
         {% if user.is_authenticated %}
-          <p>! {{ user.username }} שלום</p>
+          <p>! {{ user.profile.first_name }} שלום</p>
           {% endif %}
         <nav>
           <ul>
