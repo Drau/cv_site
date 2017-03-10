@@ -1,18 +1,31 @@
 {% extends 'cvr/base.html' %}
 
-{% block title %}{{ block.super }} - עדכון פרטים{% endblock %}
-
+{% block title %}{{ block.super }} - בית{% endblock %}
 {% block header %}
-  <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    <li><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+    {% if not user.is_staff %}
+    <li><a href="{% url 'update_profile' %}" class="btn btn-primary">עדכון פרטים</a></li>
+    {% endif %}
 {% endblock %}
+
 
 {% block content %}
-  <div class="update_user">
-    <h2>עדכון פרטים </h2>
-    <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_ul }}
-      <input type="submit" value="עדכן" class="btn btn-primary">
-    </form>
-  </div>
+<div class="profile">
+  {% if not user.is_staff %}
+    <h2 class="title">פרופיל משתמש</h2>
+    <img src="../{{ profile.image.url }}" alt="{{ profile.first_name }}" class="img-thumbnail profile-img">
+    <p>שם פרטי : {{ profile.first_name }}</p>
+    <p>שם משפחה : {{ profile.last_name }}</p>
+    <p>אימייל : {{ user.email }}</p>
+    <p>קצת על עצמי : {{ profile.free_text }}</p>
+    <p>קורות חיים : {{ profile.cv.name }}</p>
+    <p>תמונה : {{ profile.image.url }}</p>
+    <a href="{% url 'download' path=profile.cv.name %}" class="btn btn-primary">קורות חיים</a>
+  {% else %}
+  HOME
+  {% endif %}
+</div>
 {% endblock %}
+
+

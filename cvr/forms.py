@@ -64,5 +64,5 @@ class UserForm(ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
-            # Profile.objects.create(user=user)
+            # profile = Profile.objects.create(user=user)
         return user

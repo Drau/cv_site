@@ -6,30 +6,16 @@
     <li><a href="{% url 'login' %}" class="btn btn-primary">כניסה לאתר</a></li>
     <li><a href="{% url 'register' %}" class="btn btn-primary">הרשם לאתר</a></li>
   {% else %}
-    {% if not user.is_staff %}
-    <li><a href="{% url 'profile' %}" class="btn btn-primary">עדכון פרטים</a></li>
-    {% endif %}
     <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    {% if not user.is_staff %}
+    <li><a href="{% url 'profile' %}" class="btn btn-primary">פרופיל</a></li>
+    {% endif %}
   {% endif %}
 {% endblock %}
 
 
 {% block content %}
-<div class="profile">
-  {% if user.is_authenticated %}
-    <h2 class="title">פרופיל משתמש</h2>
-    <p>שם פרטי : {{ profile.first_name }}</p>
-    <p>שם משפחה : {{ profile.last_name }}</p>
-    <p>אימייל : {{ user.email }}</p>
-    <p>קצת על עצמי : {{ profile.free_text }}</p>
-    <p>קורות חיים : {{ profile.cv.name }}</p>
-    <p>תמונה : {{ profile.image.url }}</p>
-    <a href="{% url 'download' path=profile.cv.name %}" class="btn btn-primary">קורות חיים</a>
-    <img src="{{ profile.image.url }}" alt="{{ profile.first_name }}" class="img-thumbnail profile-img">
-  {% else %}
   HOME
-  {% endif %}
-</div>
 {% endblock %}
 
 

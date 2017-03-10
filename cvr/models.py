@@ -12,7 +12,7 @@ def user_directory_path(instance, filename):
     return 'cvs/{}'.format(filename)
 
 def user_image_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/imsages/<filename>
+    # file will be uploaded to MEDIA_ROOT/images/<filename>
     return 'images/{}'.format(filename)
 
 class Profile(models.Model):

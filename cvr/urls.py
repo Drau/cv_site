@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^login/$', auth_views.login, {'template_name': 'cvr/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout,{'template_name': 'cvr/logged_out.html'}, name='logout'),
+    url(r'^update_profile/', views.update_profile, name='update_profile'),
     url(r'^profile/', views.profile, name='profile'),
     url(r'^register/', views.register, name='register'),
     url(r'^download/(?P<path>.*)$', views.download, name='download'),
