@@ -1,4 +1,11 @@
 
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    appearance: none;
+}
 
 * { box-sizing: border-box; }
 
@@ -144,10 +151,6 @@ main {
 .update_user input.btn-primary  {
   margin-top: 10px;
   float: right;
-}
-
-.profile {
-  
 }
 
 .profile .title {

@@ -1,0 +1,17 @@
+{% extends 'cvr/base.html' %}
+
+{% block title %}{{ block.super }} -  רשימת קורות חיים{% endblock %}
+{% block header %}
+    <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    <li><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+{% endblock %}
+
+
+
+{% block content %}
+    {% for user in users %}
+        {% if not user.is_staff %}
+            <li><a href="{% url 'profile' profile_id=user.profile.id %}">{{ user.profile.first_name }} {{ user.profile.last_name }}</a></li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

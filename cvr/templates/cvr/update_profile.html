@@ -4,6 +4,7 @@
 
 {% block header %}
   <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+  <li><a href="{% url 'profile' profile_id=user.profile.id %}" class="btn btn-primary">חזרה לפרופיל</a></li>
   <li><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
 {% endblock %}
 

@@ -1,7 +1,7 @@
 import os
 
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,  Http404
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -19,7 +19,7 @@ def update_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/cvs/profile')
+            return HttpResponseRedirect('/cvs/profile/{}'.format(request.user.profile.id))
     else:
         if request.user.is_staff:
             return HttpResponseRedirect('/cvs/')
@@ -41,26 +41,47 @@ def register(request):
 
 def home(request):
     if request.user.is_authenticated():
-        profile = get_object_or_None(Profile, user=request.user)
-        if profile is None:
-            return HttpResponseRedirect('/cvs/update_profile')
-    return render(request, 'cvr/home.html')
+        if  not request.user.is_staff:
+            profile = get_object_or_None(Profile, user=request.user)
+            if profile is None:
+                return HttpResponseRedirect('/cvs/update_profile')
+            else:
+                return render(request, 'cvr/home.html')
+        else:
+            return HttpResponseRedirect('/cvs/cv_list')
+    else:
+        return render(request, 'cvr/home.html')
 
 @login_required()
-def profile(request):
+def cv_list(request):
+    if not request.user.is_staff:
+         return render(request, 'cvr/home.html')
+    else:
+        users = User.objects.all()
+        return render(request, 'cvr/cv_list.html', {'users': users})
+
+
+@login_required()
+def profile(request, profile_id):
     profile = None
     if request.user.is_authenticated():
-        profile = get_object_or_None(Profile, user=request.user)
+        profile = get_object_or_None(Profile, pk=profile_id)
         if profile is None:
-            return HttpResponseRedirect('/cvs/update_profile')
+            if request.user.is_staff:
+                return HttpResponseRedirect('/cvs/home')
+            else:    
+                return HttpResponseRedirect('/cvs/update_profile')
     return render(request, 'cvr/profile.html', {'profile': profile})
 
 def download(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-            return response
+        if request.user.profile.cv or request.user.is_staff:
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        else:
+            raise Http404("לא נמצאו קורות חיים במערכת.")
     else:
         return HttpResponseRedirect('/cvs/profile')
