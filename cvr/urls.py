@@ -17,4 +17,4 @@ urlpatterns = [
     url(r'^register/', views.register, name='register'),
     url(r'^cv_list/', views.cv_list, name='cv_list'),
     url(r'^download/(?P<path>.*)$', views.download, name='download'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

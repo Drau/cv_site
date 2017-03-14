@@ -1,4 +1,5 @@
 import os
+import mimetypes
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect,  Http404
@@ -78,7 +79,7 @@ def download(request, path):
     if os.path.exists(file_path):
         if request.user.profile.cv or request.user.is_staff:
             with open(file_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+                response = HttpResponse(fh.read(), content_type=mimetypes.guess_type(file_path))
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
                 return response
         else:

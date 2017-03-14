@@ -13,7 +13,7 @@
 {% block content %}
 <div class="profile">
     <h2 class="title">פרופיל משתמש</h2>
-    <img src="../{{ profile.image.url }}" alt="{{ profile.first_name }}" class="img-thumbnail profile-img">
+    <img src="{{ profile.image.url }}" alt="{{ profile.first_name }}" class="img-thumbnail profile-img">
     <p>שם פרטי : {{ profile.first_name }}</p>
     <p>שם משפחה : {{ profile.last_name }}</p>
     <p>אימייל : {{ user.email }}</p>
