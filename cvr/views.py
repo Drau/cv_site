@@ -22,7 +22,7 @@ def update_profile(request):
             form.save()
             return HttpResponseRedirect('/cvs/profile/{}'.format(request.user.profile.id))
     else:
-        if request.user.is_staff:
+        if request.user.is_staff or request.user.profile.is_privledged:
             return HttpResponseRedirect('/cvs/')
         if profile is None:
             profile = Profile(user=request.user, image="images/default.jpg")
@@ -42,7 +42,7 @@ def register(request):
 
 def home(request):
     if request.user.is_authenticated():
-        if  not request.user.is_staff:
+        if  not request.user.is_staff and not request.user.profile.is_privledged:
             profile = get_object_or_None(Profile, user=request.user)
             if profile is None:
                 return HttpResponseRedirect('/cvs/update_profile')
@@ -55,7 +55,7 @@ def home(request):
 
 @login_required()
 def cv_list(request):
-    if not request.user.is_staff:
+    if not request.user.is_staff and not request.user.profile.is_privledged:
          return render(request, 'cvr/home.html')
     else:
         users = User.objects.all()
@@ -68,7 +68,7 @@ def profile(request, profile_id):
     if request.user.is_authenticated():
         profile = get_object_or_None(Profile, pk=profile_id)
         if profile is None:
-            if request.user.is_staff:
+            if request.user.is_staff or request.user.profile.is_privledged:
                 return HttpResponseRedirect('/cvs/home')
             else:    
                 return HttpResponseRedirect('/cvs/update_profile')
@@ -77,7 +77,7 @@ def profile(request, profile_id):
 def download(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
-        if request.user.profile.cv or request.user.is_staff:
+        if request.user.profile.cv or request.user.is_staff or request.user.profile.is_privledged:
             with open(file_path, 'rb') as fh:
                 response = HttpResponse(fh.read(), content_type=mimetypes.guess_type(file_path))
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)

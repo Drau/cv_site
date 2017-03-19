@@ -7,7 +7,7 @@
     <li><a href="{% url 'register' %}" class="btn btn-primary">הרשם לאתר</a></li>
   {% else %}
     <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
-    {% if not user.is_staff %}
+    {% if not user.is_staff and not user.profile.is_privledged %}
     <li><a href="{% url 'profile' profile_id=user.profile.id %}" class="btn btn-primary">פרופיל</a></li>
     {% endif %}
   {% endif %}

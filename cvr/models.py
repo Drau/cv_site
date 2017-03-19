@@ -22,6 +22,11 @@ class Profile(models.Model):
     image = models.ImageField(upload_to=user_image_path, blank=True)
     cv = models.FileField(upload_to=user_directory_path, blank=True)
     free_text = models.CharField(max_length=200, blank=True)
+    approved = models.BooleanField(default=False)
+    is_privledged = models.BooleanField(default=False)
 
     def filename(self):
         return os.path.basename(self.cv.name)
+
+    def __str__(self):
+        return "{} {} - is{} approved".format(self.first_name, self.last_name, "" if self.approved else " not")

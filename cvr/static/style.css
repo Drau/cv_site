@@ -162,3 +162,14 @@ main {
   width: 200px;
   float: left;
 }
+
+.cv-info {
+  border: 1px solid black;
+  height: 100px;
+  margin-bottom: 5px;
+
+}
+
+.cv-info li {
+     list-style-type: none;
+}
