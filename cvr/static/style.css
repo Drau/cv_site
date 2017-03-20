@@ -163,13 +163,29 @@ main {
   float: left;
 }
 
+.cv-list {
+  width: 100%;
+}
+
 .cv-info {
-  border: 1px solid black;
-  height: 100px;
-  margin-bottom: 5px;
+  height: 2000px;
+  width: 50%;
 
 }
 
 .cv-info li {
      list-style-type: none;
+}
+
+.cv-priview {
+  border: 1px solid black;
+  height: 700px;
+  width: 400px;
+  position: fixed;
+}
+
+.details {
+  padding-right: 5px;
+  border: 1px solid black;
+  height: 100px;
 }

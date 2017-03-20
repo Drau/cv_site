@@ -10,15 +10,38 @@
 {% block content %}
 
 <p align="center">רשימת סטודנטים המעוניינים בעבודה מעניינת</p>
-        {% for user in users %}
-            {% if not user.is_staff and user.profile.approved and user.profile.cv %}
-                <div class="cv-info">
-                    <p>פרטים:</p>
-                    <span>
-                        <li><a href="{% url 'profile' profile_id=user.profile.id %}">{{ user.profile.first_name }} {{ user.profile.last_name }}</a></li>
-                        <p>{{ user.profile.free_text }}</p>
-                    </span>
-                </div>
-            {% endif %}
-        {% endfor %}
+    <div class="container-fluid">
+        <div class="cv-list row">
+            <div class="cv-priview col-md-4" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+                <iframe id="preview" name="preview" min-width="400" width="400" height="700"></iframe>
+            </div>
+            <div class="cv-info col-md-8">
+            {% for user in users %}
+                {% if not user.is_staff and user.profile.approved and user.profile.cv %}
+                    <div class="details">
+                        <p>פרטים:</p>
+                        <span>
+                            <li><a href="{% url 'profile' profile_id=user.profile.id %}">{{ user.profile.first_name }} {{ user.profile.last_name }}</a></li>
+                            <p>{{ user.profile.free_text }}</p>
+                            <a class="btn btn-primary" href="{{ MEDIA_URL }}{{ user.profile.cv.name }}" target="preview">FOO</a>
+                        </span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+    function showCV(cv_path) {
+                window.alert(cv_path);
+                var cv_priview = document.getElementsByClassName("cv-priview")[0];
+
+                cv_priview.innerHTML = '<embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="600" width="800" height="1000" type="application/pdf"/>'
+
+            }
+</script>
 {% endblock %}
