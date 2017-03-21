@@ -14,7 +14,26 @@
 {% endblock %}
 
 {% block content %}
-  HOME
+  {% if user.is_staff %}
+    {% if profiles %}
+        <h2>רשימת משתמשים חדשים לאישור</h2>
+        <form action="{% url 'home' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for profile in profiles %}
+            {% if profile.first_name %}
+              <label>{{ profile.first_name }} {{ profile.last_name }}</label>
+              <input type="checkbox" value='{{ profile.id }}' name="approve" >
+            {% endif %}
+          {% endfor %}
+          <br>
+          <input type="submit" value="אשר משתמשים" class="btn btn-primary">
+        </form>
+    {% else %}
+      <h2>אין משתמשים חדשים הממתינים לאישור</h2>
+    {% endif %}
+  {% else %}
+    HOME
+  {% endif %}
 {% endblock %}
 
 

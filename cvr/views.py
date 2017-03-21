@@ -41,17 +41,30 @@ def register(request):
     return render(request, 'cvr/register.html', {'form': form})
 
 def home(request):
-    if request.user.is_authenticated():
-        if  not request.user.is_staff and not request.user.profile.is_privledged:
-            profile = get_object_or_None(Profile, user=request.user)
-            if profile is None:
-                return HttpResponseRedirect('/cvs/update_profile')
-            else:
-                return render(request, 'cvr/home.html')
-        else:
-            return HttpResponseRedirect('/cvs/cv_list')
+    if request.method=='POST':
+        data = request.POST.getlist('approve')
+        for profile_id in data:
+            profile = Profile.objects.get(pk=profile_id)
+            profile.is_approved = True
+            profile.save()
+        profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
+        return render(request, 'cvr/home.html', {'profiles': profiles})
     else:
-        return render(request, 'cvr/home.html')
+        if request.user.is_authenticated():
+            if  not request.user.is_staff and not request.user.profile.is_privledged:
+                profile = get_object_or_None(Profile, user=request.user)
+                if not profile.cv:
+                    return HttpResponseRedirect('/cvs/update_profile')
+                else:
+                    return render(request, 'cvr/home.html')
+            else:
+                if request.user.profile.is_privledged:
+                    return HttpResponseRedirect('/cvs/cv_list')
+                elif request.user.is_staff:
+                    profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
+                    return render(request, 'cvr/home.html', {'profiles': profiles})
+        else:
+            return render(request, 'cvr/home.html')
 
 @login_required()
 def cv_list(request):

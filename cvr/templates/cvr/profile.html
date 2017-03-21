@@ -4,25 +4,30 @@
 {% block header %}
     <li role="presentation"><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
     <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
-    {% if not user.is_staff and not user.profile.is_privledged %}
+    {% if not user.is_staff and user.profile.id == profile.id %}
     <li role="presentation"><a href="{% url 'update_profile' %}" class="btn btn-primary">עדכון פרטים</a></li>
     {% endif %}
 {% endblock %}
 
 
 {% block content %}
+<h2 class="title">פרופיל משתמש</h2>
 <div class="profile">
-    <h2 class="title">פרופיל משתמש</h2>
-    <img src="{{ profile.image.url }}" alt="{{ profile.first_name }}" class="img-thumbnail profile-img">
-    <p>שם פרטי : {{ profile.first_name }}</p>
-    <p>שם משפחה : {{ profile.last_name }}</p>
-    <p>אימייל : {{ user.email }}</p>
-    <p>קצת על עצמי : {{ profile.free_text }}</p>
-    <p>קורות חיים : {{ profile.cv.name }}</p>
-    <p>תמונה : {{ profile.image.url }}</p>
-    <a href="{% url 'download' path=profile.cv.name %}" class="btn btn-primary">הורד קורות חיים</a>
+    <div class="row">
+        <img src="{{ profile.image.url }}" alt="{{ profile.first_name }}" class="img-thumbnail profile-img col-md-4">
+        <div class="profile-data col-md-8">
+            <p><b>שם פרטי :</b> {{ profile.first_name }}</p>
+            <p><b>שם משפחה :</b> {{ profile.last_name }}</p>
+            <p><b>אימייל :</b> {{ user.email }}</p>
+            <p><b>קצת על עצמי :</b> {{ profile.free_text }}</p>
+            <p><b>קורות חיים :</b> {{ profile.cv.name }}</p>
+            <p><b>תמונה :</b> {{ profile.image.url }}</p>
+            <a href="{% url 'download' path=profile.cv.name %}" class="btn btn-primary">הורד קורות חיים</a>
+        </div>
+        
+    </div>
     <br><br><br><br>
-    <embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200" width="800" height="1000" type="application/pdf"/>
+    <embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200" width="1100" height="1000" type="application/pdf"/>
 </div>
 
 {% endblock %}

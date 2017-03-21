@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils.encoding import smart_str
+
 import os
 
 
@@ -21,12 +22,12 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=30)
     image = models.ImageField(upload_to=user_image_path, blank=True)
     cv = models.FileField(upload_to=user_directory_path, blank=True)
-    free_text = models.CharField(max_length=200, blank=True)
-    approved = models.BooleanField(default=False)
+    free_text = models.CharField(max_length=500, blank=True)
+    is_approved = models.BooleanField(default=False)
     is_privledged = models.BooleanField(default=False)
 
     def filename(self):
         return os.path.basename(self.cv.name)
 
     def __str__(self):
-        return "{} {} - is{} approved".format(self.first_name, self.last_name, "" if self.approved else " not")
+        return "(ID={}) {} {} - is{} approved".format(self.id, self.first_name, self.last_name, "" if self.is_approved else " not")

@@ -11,8 +11,8 @@ from .models import Profile
 class ProfileForm(ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="שם פרטי")
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="שם משפחה")
-    # cv = forms.FileField(widget=forms.FileInput(attrs={'class':'form-control'}), label="קורות חיים", required=False)
-    cv = forms.ClearableFileInput()
+    cv = forms.FileField(widget=forms.FileInput(attrs={'class':'form-control'}), label="קורות חיים", required=False)
+    # cv = forms.ClearableFileInput()
     image = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}), label="תמונה", required=False )
     free_text = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="טקסט חופשי", required=False )
     class Meta:
@@ -65,5 +65,6 @@ class UserForm(ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
-            # profile = Profile.objects.create(user=user)
+            profile = Profile.objects.create(user=user, image="images/default.jpg")
+            profile.save()
         return user
