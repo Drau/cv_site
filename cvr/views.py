@@ -77,12 +77,11 @@ def profile(request, profile_id):
 def download(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
-        if request.user.profile.cv or request.user.is_staff or request.user.profile.is_privledged:
-            with open(file_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type=mimetypes.guess_type(file_path))
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-                return response
-        else:
-            raise Http404("לא נמצאו קורות חיים במערכת.")
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type=mimetypes.guess_type(file_path))
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+        # else:
+        #     raise Http404("לא נמצאו קורות חיים במערכת.")
     else:
         return HttpResponseRedirect('/cvs/profile')

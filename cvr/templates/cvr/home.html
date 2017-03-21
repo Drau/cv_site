@@ -3,17 +3,15 @@
 {% block title %}{{ block.super }} -  דף בית{% endblock %}
 {% block header %}
   {% if not user.is_authenticated %}
-    <li><a href="{% url 'login' %}" class="btn btn-primary">כניסה לאתר</a></li>
-    <li><a href="{% url 'register' %}" class="btn btn-primary">הרשם לאתר</a></li>
+    <li role="presentation"><a href="{% url 'login' %}" class="btn btn-primary">כניסה לאתר</a></li>
+    <li role="presentation"><a href="{% url 'register' %}" class="btn btn-primary">הרשם לאתר</a></li>
   {% else %}
-    <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    <li role="presentation"><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
     {% if not user.is_staff and not user.profile.is_privledged %}
-    <li><a href="{% url 'profile' profile_id=user.profile.id %}" class="btn btn-primary">פרופיל</a></li>
+    <li role="presentation"><a href="{% url 'profile' profile_id=user.profile.id %}" class="btn btn-primary">פרופיל</a></li>
     {% endif %}
   {% endif %}
 {% endblock %}
-
-
 
 {% block content %}
   HOME

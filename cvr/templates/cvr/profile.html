@@ -2,10 +2,10 @@
 
 {% block title %}{{ block.super }} - פרופיל{% endblock %}
 {% block header %}
-    <li><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
-    <li><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+    <li role="presentation"><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
     {% if not user.is_staff and not user.profile.is_privledged %}
-    <li><a href="{% url 'update_profile' %}" class="btn btn-primary">עדכון פרטים</a></li>
+    <li role="presentation"><a href="{% url 'update_profile' %}" class="btn btn-primary">עדכון פרטים</a></li>
     {% endif %}
 {% endblock %}
 
@@ -21,9 +21,9 @@
     <p>קורות חיים : {{ profile.cv.name }}</p>
     <p>תמונה : {{ profile.image.url }}</p>
     <a href="{% url 'download' path=profile.cv.name %}" class="btn btn-primary">הורד קורות חיים</a>
+    <br><br><br><br>
+    <embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200" width="800" height="1000" type="application/pdf"/>
 </div>
-<br>
-<embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="600" width="800" height="1000" type="application/pdf"/>
 
 {% endblock %}
 
