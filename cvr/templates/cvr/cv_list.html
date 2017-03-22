@@ -16,7 +16,7 @@
                 {% for user in users %}
                     {% if not user.is_staff and user.profile.is_approved and user.profile.cv %}
                         <div class="details">
-                                <img class="image" src="{{ user.profile.image.url }}" alt="{{ user.profile.first_name }}" class="img-thumbnail profile-img" width="100">
+                                <img class="image img-thumbnail" src="{{ user.profile.image.url }}" alt="{{ user.profile.first_name }}" class="img-thumbnail profile-img" width="100">
                                 <li><a href="{% url 'profile' profile_id=user.profile.id %}">{{ user.profile.first_name }} {{ user.profile.last_name }}</a></li>
                                 <p>{{ user.profile.free_text }}</p>
                                 {% if ".pdf" in user.profile.cv.path  %}

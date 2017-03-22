@@ -14,21 +14,22 @@ from .forms import UserForm, ProfileForm
 from .models import Profile
 
 @login_required
-def update_profile(request):
-    profile = get_object_or_None(Profile, user=request.user)
+def update_profile(request,profile_id):
+    profile = get_object_or_None(Profile, pk=profile_id)
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/cvs/profile/{}'.format(request.user.profile.id))
+            return HttpResponseRedirect('/cvs/profile/{}'.format(profile.id))
     else:
-        if request.user.is_staff or request.user.profile.is_privledged:
+        if (request.user.is_staff) or (str(request.user.profile.id) == profile_id):
+            if profile is None:
+                profile = Profile(user=request.user, image="images/default.jpg")
+                profile.save()
+            form = ProfileForm(instance=profile)
+            return render(request, 'cvr/update_profile.html', {'form': form, 'profile': profile})
+        else:
             return HttpResponseRedirect('/cvs/')
-        if profile is None:
-            profile = Profile(user=request.user, image="images/default.jpg")
-            profile.save()
-        form = ProfileForm(instance=profile)
-        return render(request, 'cvr/update_profile.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -40,7 +41,9 @@ def register(request):
         form = UserForm()
     return render(request, 'cvr/register.html', {'form': form})
 
+@login_required()
 def home(request):
+    # updating allowed profiles -> Stay at home page
     if request.method=='POST':
         data = request.POST.getlist('approve')
         for profile_id in data:
@@ -49,22 +52,27 @@ def home(request):
             profile.save()
         profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
         return render(request, 'cvr/home.html', {'profiles': profiles})
+    # GET request
     else:
-        if request.user.is_authenticated():
-            if  not request.user.is_staff and not request.user.profile.is_privledged:
-                profile = get_object_or_None(Profile, user=request.user)
-                if not profile.cv:
-                    return HttpResponseRedirect('/cvs/update_profile')
-                else:
-                    return render(request, 'cvr/home.html')
+        # If regular user
+        if  not request.user.is_staff and not request.user.profile.is_privledged:
+            profile = get_object_or_None(Profile, user=request.user)
+            # If no CV exists -> Force profile update
+            if not profile.cv:
+                return HttpResponseRedirect('/cvs/profile/{}/update_profile'.format(request.user.profile.id))
+            # If CV exists -> move to profile page
             else:
-                if request.user.profile.is_privledged:
-                    return HttpResponseRedirect('/cvs/cv_list')
-                elif request.user.is_staff:
-                    profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
-                    return render(request, 'cvr/home.html', {'profiles': profiles})
+                return HttpResponseRedirect('/cvs/profile/{}'.format(request.user.profile.id))
+        # If is_privledged or admin(is_staff)
         else:
-            return render(request, 'cvr/home.html')
+            # If user is provledged -> Move to cv_list
+            if request.user.profile.is_privledged:
+                return HttpResponseRedirect('/cvs/cv_list')
+            # If user is admin -> Move to home page
+            elif request.user.is_staff:
+                profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
+                return render(request, 'cvr/home.html', {'profiles': profiles})
+
 
 @login_required()
 def cv_list(request):
@@ -84,7 +92,7 @@ def profile(request, profile_id):
             if request.user.is_staff or request.user.profile.is_privledged:
                 return HttpResponseRedirect('/cvs/home')
             else:    
-                return HttpResponseRedirect('/cvs/update_profile')
+                return HttpResponseRedirect('/cvs/profile/{}/update_profile'.format(request.user.profile.id))
     return render(request, 'cvr/profile.html', {'profile': profile})
 
 def download(request, path):

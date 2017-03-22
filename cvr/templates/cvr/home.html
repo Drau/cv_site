@@ -10,6 +10,9 @@
     {% if not user.is_staff and not user.profile.is_privledged %}
     <li role="presentation"><a href="{% url 'profile' profile_id=user.profile.id %}" class="btn btn-primary">פרופיל</a></li>
     {% endif %}
+    {% if user.is_staff %}
+    <li role="presentation"><a href="{% url 'cv_list' %}" class="btn btn-primary">רשימת משתמשים</a></li>
+    {% endif %}
   {% endif %}
 {% endblock %}
 
@@ -21,8 +24,10 @@
           {% csrf_token %}
           {% for profile in profiles %}
             {% if profile.first_name %}
-              <label>{{ profile.first_name }} {{ profile.last_name }}</label>
+            <div>
               <input type="checkbox" value='{{ profile.id }}' name="approve" >
+              <a href="{% url 'profile' profile_id=profile.id %}">{{ profile.first_name }} {{ profile.last_name }}</a>
+            </div>
             {% endif %}
           {% endfor %}
           <br>

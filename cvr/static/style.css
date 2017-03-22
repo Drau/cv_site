@@ -43,7 +43,7 @@ main {
   direction: rtl;
 }
 
-main .container {
+main.container {
   width: 80%;
 }
 
@@ -51,7 +51,7 @@ main .container {
 
 .create_user {
   max-width: 600px;
-  padding: 15px 35px 45px;
+  padding:  5px 35px 45px;
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid rgba(0,0,0,0.1);
@@ -126,6 +126,11 @@ main .container {
   text-align: center;
 }
 
+.profile .profile-preview {
+  text-align: center;
+  overflow: hidden;
+} 
+
 .profile .profile-img{
     /*max-height: 300px;*/
     max-width: 200px;
@@ -145,14 +150,15 @@ main .container {
 }
 
 .cv-info {
-  border: 3px dashed blue;
+  /*border: 3px dashed blue;*/
   max-height: 73vh;
   overflow-y: auto;
 }
 
 .details {
   border: 1px solid black;
-  overflow: auto;
+  overflow: hidden;
+  /*max-height: 200px;*/
 }
 
 .details .image {
@@ -160,7 +166,7 @@ main .container {
 }
 
 .preview {
-  border: 3px dashed #ff0080;
+  /*border: 3px dashed #ff0080;*/
   height: 73vh;
 }
 

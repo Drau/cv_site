@@ -3,9 +3,11 @@
 {% block title %}{{ block.super }} - פרופיל{% endblock %}
 {% block header %}
     <li role="presentation"><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
-    <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
-    {% if not user.is_staff and user.profile.id == profile.id %}
-    <li role="presentation"><a href="{% url 'update_profile' %}" class="btn btn-primary">עדכון פרטים</a></li>
+    {% if user.is_staff or user.profile.is_privledged %}
+        <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+    {% endif %}
+    {% if user.is_staff or user.profile.id == profile.id %}
+        <li role="presentation"><a href="{% url 'update_profile' profile_id=profile.id %}" class="btn btn-primary">עדכון פרטים</a></li>
     {% endif %}
 {% endblock %}
 
@@ -27,7 +29,9 @@
         
     </div>
     <br><br><br><br>
-    <embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200" width="1100" height="1000" type="application/pdf"/>
+    <div class="profile-preview row">
+    <embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200" width="1100" height="1000" type="application/pdf" allowfullscreen/>
+    </div>
 </div>
 
 {% endblock %}

@@ -4,14 +4,16 @@
 
 {% block header %}
   <li role="presentation"><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
-  <li role="presentation"><a href="{% url 'profile' profile_id=user.profile.id %}" class="btn btn-primary">חזרה לפרופיל</a></li>
-  <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+  <li role="presentation"><a href="{% url 'profile' profile_id=profile.id %}" class="btn btn-primary">פרופיל</a></li>
+   {% if user.is_staff or user.profile.is_privledged %}
+        <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
   <div class="update_user">
     <h2>עדכון פרטים </h2>
-    <form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'update_profile' profile_id=profile.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_table }}
       <input type="submit" value="עדכן" class="btn btn-primary">
