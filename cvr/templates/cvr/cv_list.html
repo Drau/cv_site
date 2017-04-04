@@ -3,6 +3,9 @@
 {% block title %}{{ block.super }} -  רשימת קורות חיים{% endblock %}
 {% block header %}
     <li role="presentation"><a href="{% url 'logout' %}" class="btn btn-primary">התנתקות</a></li>
+    {% if user.is_staff or user.profile.is_privledged %}
+        <li role="presentation"><a href="{% url 'home' %}" class="btn btn-primary">חזרה לדף הבית</a></li>
+    {% endif %}
 {% endblock %}
 
 
