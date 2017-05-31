@@ -32,7 +32,11 @@
     </div>
     <br><br><br><br>
     <div class="profile-preview row">
-    <embed src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200vh" width="800vh" height="1000" type="application/pdf" allowfullscreen/>
+    {% if ".pdf" in profile.cv.name and not is_mobile or ".PDF" in profile.cv.name and not is_mobile %}
+        <iframe src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200vh" width="800vh" height="1000" type="application/pdf" allowfullscreen></iframe>
+    {% else %}
+        תצוגה מקדימה אינה זמינה, אנא הורד את קורות החיים
+    {% endif %}
     </div>
 </div>
 

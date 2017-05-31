@@ -76,15 +76,17 @@ def home(request):
 
 @login_required()
 def cv_list(request):
+    is_mobile = any([i in request.META.get('HTTP_USER_AGENT','').lower() for i in ["iphone", "mobile", "android"]])
     if not request.user.is_staff and not request.user.profile.is_privledged:
          return render(request, 'cvr/home.html')
     else:
         users = User.objects.all()
-        return render(request, 'cvr/cv_list.html', {'users': users})
+        return render(request, 'cvr/cv_list.html', {'users': users, 'is_mobile': is_mobile})
 
 
 @login_required()
 def profile(request, profile_id):
+    is_mobile = any([i in request.META.get('HTTP_USER_AGENT','').lower() for i in ["iphone", "mobile", "android"]])
     profile = None
     if request.user.is_authenticated():
         profile = get_object_or_None(Profile, pk=profile_id)
@@ -93,8 +95,9 @@ def profile(request, profile_id):
                 return HttpResponseRedirect('/cvs/home')
             else:    
                 return HttpResponseRedirect('/cvs/profile/{}/update_profile'.format(request.user.profile.id))
-    return render(request, 'cvr/profile.html', {'profile': profile})
+    return render(request, 'cvr/profile.html', {'profile': profile, 'is_mobile': is_mobile})
 
+@login_required()
 def download(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):

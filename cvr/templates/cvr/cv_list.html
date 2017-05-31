@@ -14,19 +14,26 @@
 <p align="center">רשימת סטודנטים המעוניינים בעבודה מעניינת</p>
     <div class="container-fluid">
         <div class="cv-list row">
-            <iframe id="preview" name="preview" class="preview col-md-6"></iframe>
+            {% if not is_mobile %}
+                <iframe id="preview" name="preview" class="preview col-md-6"></iframe>
+            {% endif %}
             <div class="cv-info col-md-6">
                 {% for user in users %}
                     {% if not user.is_staff and user.profile.is_approved and user.profile.cv %}
                         <div class="details">
                                 <img class="image img-thumbnail" src="{{ user.profile.image.url }}" alt="{{ user.profile.first_name }}" class="img-thumbnail profile-img" width="100">
                                 <li><a href="{% url 'profile' profile_id=user.profile.id %}">{{ user.profile.first_name }} {{ user.profile.last_name }}</a></li>
+                                
                                 <p>{{ user.profile.free_text }}</p>
-                                {% if ".pdf" in user.profile.cv.path  %}
+                                {% if ".pdf" in user.profile.cv.path and not is_mobile or ".PDF" in user.profile.cv.path and not is_mobile %}
                                     <a class="btn btn-primary" href="{{ MEDIA_URL }}{{ user.profile.cv.name }}" target="preview">צפה בקורות חיים</a>
                                 {% else %}
                                     <a href="{% url 'download' path=user.profile.cv.name %}" class="btn btn-primary">הורד קורות חיים</a>
-                                    <p>לא ניתן לצפות בקורות חיים שאינם בפורמט pdf</p>
+                                    {% if is_mobile %}
+                                        <p>לא ניתן לצפות בקורות חיים באתר מובייל</p>
+                                    {% else %}
+                                        <p>לא ניתן לצפות בקורות חיים שאינם בפורמט pdf</p>
+                                    {% endif %}
                                 {% endif %}
                         </div>
                     {% endif %}

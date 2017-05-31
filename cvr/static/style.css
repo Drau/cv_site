@@ -37,7 +37,7 @@ nav p{
 
 main { 
   display: block;
-  min-height: 900px;
+  /*min-height: 900px;*/
   padding: 3rem 6rem;
   background: #EEE;
   direction: rtl;
