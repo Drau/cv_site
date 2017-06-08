@@ -1,0 +1,8 @@
+{% load i18n %}{% blocktrans %} שלום {{ username }},{% endblocktrans %}
+
+התקבלה בקשה לאחזור סיסמא .
+אנא לחץ על הלינק למטה על מנת לבחור סיסמא חדשה
+
+http{% if secure %}s{% endif %}://{{ site.domain }}{% url "password_reset_reset" token %}
+
+אם אין ברצונך לבחור סיסמא חדשה, אנא התעלם ממייל זה.

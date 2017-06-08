@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'yarn',
     'cvr.apps.CvrConfig',
+    'password_reset',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = ['cvr.backends.EmailBackend']
+
+DEFAULT_FROM_EMAIL = 'noreply@cvs.com'
 
 ROOT_URLCONF = 'cvs.urls'
 

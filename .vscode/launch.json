@@ -95,12 +95,11 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
-            "pythonPath": "${config.python.pythonPath}",
+            "pythonPath": "/Users/michaelr/.virtualenvs/personal/bin/python",
             "program": "${workspaceRoot}/manage.py",
             "cwd": "${workspaceRoot}",
             "args": [
                 "runserver",
-                "--noreload"
             ],
             "env": null,
             "envFile": "${workspaceRoot}/.env",

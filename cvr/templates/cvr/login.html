@@ -11,8 +11,25 @@
   <h2>כניסה לאתר</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+{% if form.errors %}
+אימייל או סיסמא אינם נכונים.
+{% endif %}
+  <div class="fieldWrapper">
+      {{ form.username.errors }}
+      <label for="{{ form.username.id_for_label }}" style="width:100px" >אימייל:</label>
+      {{ form.username }}
+  </div>
+  <div class="fieldWrapper">
+      {{ form.password.errors }}
+      <label for="{{ form.password.id_for_label }}" style="width:100px">סיסמא:</label>
+      {{ form.password }}
+  </div>
+
+    <br>
     <button type="submit" class="btn btn-primary">התחבר</button>
+    <a href="{% url "password_reset_recover" %}" class="btn btn-primary">שחזור סיסמא</a>
   </form>
+  
   </div>
 {% endblock %}

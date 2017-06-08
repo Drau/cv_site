@@ -12,6 +12,7 @@ from django.forms.models import model_to_dict
 
 from .forms import UserForm, ProfileForm
 from .models import Profile
+from password_reset import views as password_views
 
 @login_required
 def update_profile(request,profile_id):
@@ -102,8 +103,9 @@ def download(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type=mimetypes.guess_type(file_path))
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            response = HttpResponse(fh.read(), content_type='application/octet-stream')
+            response['Content-Description'] = 'File Transfer'
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
             return response
         # else:
         #     raise Http404("לא נמצאו קורות חיים במערכת.")
