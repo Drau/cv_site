@@ -20,7 +20,7 @@
         <div class="profile-data col-md-8">
             <p><b>שם פרטי :</b> {{ profile.first_name }}</p>
             <p><b>שם משפחה :</b> {{ profile.last_name }}</p>
-            <p><b>אימייל :</b> {{ user.email }}</p>
+            <p><b>אימייל :</b> {{ local_user.email }}</p>
             <p><b>קצת על עצמי :</b> {{ profile.free_text }}</p>
             {% if user.is_staff %}
             <p><b>קורות חיים :</b> {{ profile.cv.name }}</p>

@@ -96,7 +96,8 @@ def profile(request, profile_id):
                 return HttpResponseRedirect('/cvs/home')
             else:    
                 return HttpResponseRedirect('/cvs/profile/{}/update_profile'.format(request.user.profile.id))
-    return render(request, 'cvr/profile.html', {'profile': profile, 'is_mobile': is_mobile})
+        local_user = User.objects.get(profile__first_name=profile.first_name)
+    return render(request, 'cvr/profile.html', {'profile': profile, 'is_mobile': is_mobile, 'local_user': local_user})
 
 @login_required()
 def download(request, path):
