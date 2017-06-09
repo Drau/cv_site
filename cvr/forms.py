@@ -64,7 +64,7 @@ class UserForm(ModelForm):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         if email and User.objects.filter(email=email).exclude(username=username).exists():
-            raise forms.ValidationError(u'Email addresses must be unique.')
+            raise forms.ValidationError(u'קיים אימייל זהה במערכת, במידה ושכחת סיסמא אנא שחזר סיסמא.')
         return email
 
     def save(self, commit=True):
