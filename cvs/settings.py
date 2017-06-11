@@ -21,11 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '!a!p)(4nbmxag1+84*^^83(f$7go#%_^szkk09%k8c+z+q5((s'
-
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+#SECURE_BROWSER_XSS_FILTER = True
+#SESSION_COOKIE_SECURE = True
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['93.172.64.118', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['204.8.232.64', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -54,7 +56,7 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = ['cvr.backends.EmailBackend']
 
-DEFAULT_FROM_EMAIL = 'noreply@cvs.com'
+DEFAULT_FROM_EMAIL = 'noreply@cvs'
 
 ROOT_URLCONF = 'cvs.urls'
 
@@ -107,7 +109,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = '/home/mich/workspace/static'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
@@ -119,4 +121,5 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'yarn.finders.YarnFinder',
 ]
+#DEFAULT_FILE_STORAGE = ['/home/mich/workspace/static']
 YARN_ROOT_PATH = BASE_DIR
