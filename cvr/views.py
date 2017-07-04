@@ -22,15 +22,14 @@ def update_profile(request,profile_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/cvs/profile/{}'.format(profile.id))
+    if (request.user.is_staff) or (str(request.user.profile.id) == profile_id):
+        if profile is None:
+            profile = Profile(user=request.user, image="images/default.jpg")
+            profile.save()
+        form = ProfileForm(instance=profile)
+        return render(request, 'cvr/update_profile.html', {'form': form, 'profile': profile})
     else:
-        if (request.user.is_staff) or (str(request.user.profile.id) == profile_id):
-            if profile is None:
-                profile = Profile(user=request.user, image="images/default.jpg")
-                profile.save()
-            form = ProfileForm(instance=profile)
-            return render(request, 'cvr/update_profile.html', {'form': form, 'profile': profile})
-        else:
-            return HttpResponseRedirect('/cvs/')
+        return HttpResponseRedirect('/cvs/')
 
 def register(request):
     if request.method == 'POST':
@@ -46,13 +45,18 @@ def register(request):
 def home(request):
     # updating allowed profiles -> Stay at home page
     if request.method=='POST':
-        data = request.POST.getlist('approve')
-        for profile_id in data:
+        to_approve = request.POST.getlist('approve')
+        to_delete = request.POST.getlist('delete')
+        for profile_id in to_approve:
             profile = Profile.objects.get(pk=profile_id)
             profile.is_approved = True
             profile.save()
+        for profile_id in to_delete:
+            profile = Profile.objects.get(pk=profile_id)
+            profile.user.delete()
         profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
-        return render(request, 'cvr/home.html', {'profiles': profiles})
+        all_profiles = Profile.objects.filter(user__is_staff=False)
+        return render(request, 'cvr/home.html', {'profiles': profiles, 'all_profiles' : all_profiles})
     # GET request
     else:
         # If regular user
@@ -72,7 +76,8 @@ def home(request):
             # If user is admin -> Move to home page
             elif request.user.is_staff:
                 profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
-                return render(request, 'cvr/home.html', {'profiles': profiles})
+                all_profiles = Profile.objects.filter(user__is_staff=False)
+                return render(request, 'cvr/home.html', {'profiles': profiles, 'all_profiles' : all_profiles})
 
 
 @login_required()

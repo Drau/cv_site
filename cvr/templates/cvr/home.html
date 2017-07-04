@@ -36,6 +36,22 @@
     {% else %}
       <h2>אין משתמשים חדשים הממתינים לאישור</h2>
     {% endif %}
+     {% if all_profiles %}
+        <h2>משתמשים למחיקה</h2>
+        <form action="{% url 'home' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for profile in all_profiles %}
+          <div>
+            <input type="checkbox" value='{{ profile.id }}' name="delete" >
+            <a href="{% url 'profile' profile_id=profile.id %}">{{ profile.id }} : {{ profile.first_name }} {{ profile.last_name }}</a>
+          </div>
+          {% endfor %}
+          <br>
+          <input type="submit" value="מחק משתמשים" class="btn btn-primary">
+        </form>
+    {% else %}
+      <h2>אין משתמשים משתמשים שניתן למחוק</h2>
+    {% endif %}
   {% else %}
     HOME
   {% endif %}

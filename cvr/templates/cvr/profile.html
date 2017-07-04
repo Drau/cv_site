@@ -26,11 +26,14 @@
             <p><b>קורות חיים :</b> {{ profile.cv.name }}</p>
             <p><b>תמונה :</b> {{ profile.image.url }}</p>
             {% endif %}
+            {% if profile.cv %}
             <a href="{% url 'download' path=profile.cv.name %}" class="btn btn-primary">הורד קורות חיים</a>
+            {% endif %}
         </div>
         
     </div>
     <br><br><br><br>
+    {% if profile.cv %}
     <div class="profile-preview row">
     {% if ".pdf" in profile.cv.name and not is_mobile or ".PDF" in profile.cv.name and not is_mobile %}
         <iframe src="{{ MEDIA_URL }}{{ profile.cv.name }}" min-width="200vh" width="800vh" height="1000" type="application/pdf" allowfullscreen></iframe>
@@ -38,6 +41,7 @@
         תצוגה מקדימה אינה זמינה, אנא הורד את קורות החיים
     {% endif %}
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

@@ -90,16 +90,18 @@
                 "WaitOnNormalExit"
             ]
         },
+    
         {
             "name": "Django",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": false,
-            "pythonPath": "/Users/michaelr/.virtualenvs/personal/bin/python",
-            "program": "${workspaceRoot}/manage.py",
+            "stopOnEntry": true,
+            "pythonPath": "${config.python.pythonPath}",
+            "program": "${workspaceRoot/manage.py",
             "cwd": "${workspaceRoot}",
             "args": [
                 "runserver",
+                "--noreload"
             ],
             "env": null,
             "envFile": "${workspaceRoot}/.env",
@@ -110,6 +112,8 @@
                 "DjangoDebugging"
             ]
         },
+
+
         {
             "name": "Flask",
             "type": "python",

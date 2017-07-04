@@ -25,7 +25,7 @@ SECRET_KEY = '!a!p)(4nbmxag1+84*^^83(f$7go#%_^szkk09%k8c+z+q5((s'
 #SECURE_BROWSER_XSS_FILTER = True
 #SESSION_COOKIE_SECURE = True
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['204.8.232.64', 'localhost', '127.0.0.1']
 
@@ -109,7 +109,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/mich/workspace/static'
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'

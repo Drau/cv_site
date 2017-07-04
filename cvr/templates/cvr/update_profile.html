@@ -15,7 +15,35 @@
     <h2>עדכון פרטים </h2>
     <form action="{% url 'update_profile' profile_id=profile.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_table }}
+        <!--{{ form.as_table }}-->
+         <div class="fieldWrapper">
+            <label for="{{ form.first_name.id_for_label }}" style="width:100px" >שם פרטי:</label>
+            {{ form.first_name }}
+         </div>
+         <div class="fieldWrapper">
+            <label for="{{ form.last_name.id_for_label }}" style="width:100px" >שם משפחה:</label>
+            {{ form.last_name }}
+         </div>
+         <div class="fieldWrapper">
+            <label for="{{ form.free_text.id_for_label }}" style="width:100px" >טקסט חופשי:</label>
+            {{ form.free_text }}
+         </div>
+         <div class="fieldWrapper">
+            <label for="{{ form.cv.id_for_label }}" >קורות חיים: </label>
+            {% if profile.cv.name %}
+            <br>
+            <a href="{% url 'download' path=profile.cv.name %}"> {{ profile.cv.name }} </a>
+            <input type="checkbox" name="cv-clear" id="cv-clear_id" />
+            <label for="cv-clear_id">מחק</label>
+            {% endif %} 
+            <input type="file" name="cv" class="form-control" id="id_cv"/>
+            <!--{{ form.cv }}-->
+         </div
+         <br>
+         <div class="fieldWrapper">
+            <label for="{{ form.image.id_for_label }}" style="width:100px" >תמונה:</label>
+            {{ form.image }}
+         </div>
       <input type="submit" value="עדכן" class="btn btn-primary">
     </form>
   </div>
