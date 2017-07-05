@@ -13,7 +13,7 @@ class ProfileForm(ModelForm):
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="שם משפחה")
     cv = forms.FileField(widget=forms.ClearableFileInput(attrs={'class':'form-control'}), label="קורות חיים", required=False)
     # cv = forms.ClearableFileInput()
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'class':'form-control'}), label="תמונה", required=False )
+    image = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}), label="תמונה", required=False )
     free_text = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="טקסט חופשי", required=False )
     class Meta:
         model = Profile
