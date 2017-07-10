@@ -11,6 +11,13 @@ body {
   padding-bottom: 30px;
 }
 
+.messages {
+  text-align: center;
+  color: green;
+  list-style: none;
+  padding-left: 0;
+}
+
 .navbar.navbar-fixed-top {
   background-color: #607D8B;
 }

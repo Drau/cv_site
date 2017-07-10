@@ -4,6 +4,7 @@ import mimetypes
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect,  Http404
 from django.template import loader
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
@@ -47,6 +48,7 @@ def home(request):
     if request.method=='POST':
         to_approve = request.POST.getlist('approve')
         to_delete = request.POST.getlist('delete')
+        to_privilege = request.POST.getlist('privilege')
         for profile_id in to_approve:
             profile = Profile.objects.get(pk=profile_id)
             profile.is_approved = True
@@ -54,6 +56,13 @@ def home(request):
         for profile_id in to_delete:
             profile = Profile.objects.get(pk=profile_id)
             profile.user.delete()
+        if to_privilege:
+            Profile.objects.all().update(is_privledged=False)
+        for profile_id in to_privilege:
+            profile = Profile.objects.get(pk=profile_id)
+            profile.is_privledged = True
+            profile.save()
+        messages.success(request, 'פרטים עודכנו')
         profiles = Profile.objects.filter(is_approved=False, user__is_staff=False).exclude(first_name__exact='')
         all_profiles = Profile.objects.filter(user__is_staff=False)
         return render(request, 'cvr/home.html', {'profiles': profiles, 'all_profiles' : all_profiles})
