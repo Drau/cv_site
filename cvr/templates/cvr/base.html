@@ -47,6 +47,7 @@
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
     {% block script %}
     {% endblock %}
+    <div id="loading"></div>
   </body>
 </html>
 
@@ -77,4 +78,12 @@ $('img').hover(function() {
 
 $('#popoverData').popover();
 $('#popoverOption').popover({ trigger: "hover" });
+
+
+$('#update_form').submit(function () {
+  $('#loading').show()
+  $('#update_submit').prop('disabled', true)
+})
+
+
 </script>
