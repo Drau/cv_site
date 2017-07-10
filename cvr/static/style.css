@@ -111,19 +111,19 @@ main.container {
   background-color: #fff;
   border: 1px solid rgba(0,0,0,0.1); 
 }
-/*
-.update_user label {
+
+/*.update_user label {
     float: right;
     clear: left;
     width: 150px;
     text-align: right;
-    }
+    }*/
 
 .update_user li {
      list-style-type: none;
-}*/
-/*
-.update_user input {
+}
+
+/*.update_user input {
     float: left;
 }*/
 
@@ -144,8 +144,7 @@ main.container {
 } 
 
 .profile .profile-img{
-    /*max-height: 300px;*/
-    max-width: 200px;
+    max-width: 300px;
     float: left;
     margin-left: 10px;
 }

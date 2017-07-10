@@ -23,6 +23,9 @@ def update_profile(request,profile_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/cvs/profile/{}'.format(profile.id))
+        else:
+            messages.error(request, 'הייתה בעייה, אנא תקנו ונסו שנית')
+            return render(request, 'cvr/update_profile.html', {'form': form, 'profile': profile})    
     if (request.user.is_staff) or (str(request.user.profile.id) == profile_id):
         if profile is None:
             profile = Profile(user=request.user, image="images/default.jpg")

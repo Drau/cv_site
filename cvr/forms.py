@@ -14,7 +14,7 @@ class ProfileForm(ModelForm):
     cv = forms.FileField(widget=forms.ClearableFileInput(attrs={'class':'form-control'}), label="קורות חיים", required=False)
     # cv = forms.ClearableFileInput()
     image = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}), label="תמונה", required=False )
-    free_text = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="טקסט חופשי", required=False )
+    free_text = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'size':500, 'maxlength':500}), label="טקסט חופשי", required=False )
     class Meta:
         model = Profile
         fields = ['first_name', 'last_name', 'cv', 'image', 'free_text']

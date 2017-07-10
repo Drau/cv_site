@@ -17,19 +17,19 @@
         {% csrf_token %}
         <!--{{ form.as_table }}-->
          <div class="fieldWrapper">
-            <label for="{{ form.first_name.id_for_label }}" style="width:100px" >שם פרטי:</label>
+            <label for="{{ form.first_name.id_for_label }}" style="width:100px" >שם פרטי:</label>{{ form.first_name.errors }}
             {{ form.first_name }}
          </div>
          <div class="fieldWrapper">
-            <label for="{{ form.last_name.id_for_label }}" style="width:100px" >שם משפחה:</label>
+            <label for="{{ form.last_name.id_for_label }}" style="width:100px" >שם משפחה:</label>{{ form.last_name.errors }}
             {{ form.last_name }}
          </div>
          <div class="fieldWrapper">
-            <label for="{{ form.free_text.id_for_label }}" style="width:100px" >טקסט חופשי:</label>
+            <label for="{{ form.free_text.id_for_label }}" style="width:100px" >טקסט חופשי:</label>{{ form.free_text.errors }}
             {{ form.free_text }}
          </div>
          <div class="fieldWrapper">
-            <label for="{{ form.cv.id_for_label }}" >קורות חיים: </label>
+            <label for="{{ form.cv.id_for_label }}" >קורות חיים: </label>{{ form.cv.errors }}
             {% if profile.cv.name %}
             <br>
             <a href="{% url 'download' path=profile.cv.name %}"> {{ profile.cv.name }} </a>
@@ -41,7 +41,7 @@
          </div
          <br>
          <div class="fieldWrapper">
-            <label for="{{ form.image.id_for_label }}" style="width:100px" >תמונה:</label>
+            <label for="{{ form.image.id_for_label }}" style="width:100px" >תמונה:</label>{{ form.image.errors }}
             {{ form.image }}
          </div>
       <input type="submit" value="עדכן" class="btn btn-primary" id="update_submit">
