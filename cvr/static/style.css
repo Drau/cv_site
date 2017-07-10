@@ -13,9 +13,14 @@ body {
 
 .messages {
   text-align: center;
-  color: green;
   list-style: none;
   padding-left: 0;
+}
+.error {
+    color: red;
+}
+.success {
+    color: green;
 }
 
 .navbar.navbar-fixed-top {
