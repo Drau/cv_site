@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'yarn',
     'cvr.apps.CvrConfig',
     'password_reset',
+    'django_resized',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +109,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+
+
+DJANGORESIZED_DEFAULT_SIZE = [400, 600]
+DJANGORESIZED_DEFAULT_QUALITY = 100
+DJANGORESIZED_DEFAULT_KEEP_META = True
+
 
 STATIC_URL = '/static/'
 
