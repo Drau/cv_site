@@ -59,8 +59,7 @@ def home(request):
         for profile_id in to_delete:
             profile = Profile.objects.get(pk=profile_id)
             profile.user.delete()
-        if to_privilege:
-            Profile.objects.all().update(is_privledged=False)
+        Profile.objects.all().update(is_privledged=False)
         for profile_id in to_privilege:
             profile = Profile.objects.get(pk=profile_id)
             profile.is_privledged = True
